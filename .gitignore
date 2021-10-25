@@ -5,6 +5,10 @@
 /vendor
 .env
 .env.backup
+phpunit.xml
+.styleci.yml
+Schedule manager.drawio
+README.md
 .phpunit.result.cache
 docker-compose.override.yml
 Homestead.json
