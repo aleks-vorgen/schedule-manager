@@ -18,13 +18,13 @@ class CreateSchedulesTable extends Migration
 
             $table->dateTime('date_time_begin');
             $table->dateTime('date_time_end');
-            $table->unsignedbigInteger('group_id');
-            $table->unsignedbigInteger('teacher_id');
+            $table->unsignedbigInteger('group_id')->nullable();
+            $table->unsignedbigInteger('teacher_id')->nullable();
 
             $table->timestamps();
 
-            $table->foreign('group_id')->references('id')->on('groups')->onDelete('cascade');
-            $table->foreign('teacher_id')->references('id')->on('teachers')->onDelete('cascade');
+            $table->foreign('group_id')->references('id')->on('groups')->nullOnDelete();
+            $table->foreign('teacher_id')->references('id')->on('teachers')->nullOnDelete();
         });
     }
 

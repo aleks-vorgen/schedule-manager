@@ -11,7 +11,7 @@
                         <router-link exact-active-class="active" class="nav-link" :to="{name: 'groupList'}">Groups</router-link>
                         <router-link exact-active-class="active" class="nav-link" :to="{name: 'studentList'}">Students</router-link>
                         <router-link exact-active-class="active" class="nav-link" :to="{name: 'teacherList'}">Teachers</router-link>
-                        <router-link exact-active-class="active" class="nav-link disabled" to="/admin/schedule">Schedules</router-link>
+                        <router-link exact-active-class="active" class="nav-link" :to="{name: 'scheduleList'}">Schedules</router-link>
                     </div>
                 </div>
             </div>

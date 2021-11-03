@@ -10,6 +10,10 @@ const TeacherList = () => import('./components/admin/teacher/List.vue')
 const TeacherEdit = () => import('./components/admin/teacher/Edit.vue')
 const TeacherCreate = () => import('./components/admin/teacher/Edit.vue')
 
+const ScheduleList = () => import('./components/admin/schedule/List.vue')
+const ScheduleEdit = () => import('./components/admin/schedule/Edit.vue')
+const ScheduleCreate = () => import('./components/admin/schedule/Edit.vue')
+
 export const routes = [
     {
         name: 'groupList',
@@ -57,5 +61,21 @@ export const routes = [
         name: 'teacherAdd',
         path: '/admin/teacher/edit',
         component: TeacherCreate
+    },
+
+    {
+        name: 'scheduleList',
+        path: '/admin/schedule',
+        component: ScheduleList
+    },
+    {
+        name: 'scheduleEdit',
+        path: '/admin/schedule/:id/edit',
+        component: ScheduleEdit
+    },
+    {
+        name: 'scheduleAdd',
+        path: '/admin/schedule/edit',
+        component: ScheduleCreate
     },
 ]
