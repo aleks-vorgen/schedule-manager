@@ -21,9 +21,11 @@ class StudentController extends Controller
         if(!empty($_GET['id'])) {
             $id = $_GET['id'];
             $students = DB::table('students')
-                ->selectRaw('id')
-                ->selectRaw('name')
-                ->selectRaw('surname')
+                ->select([
+                    'id',
+                    'name',
+                    'surname'
+                ])
                 ->where('group_id', '=', $id)
                 ->get();
             return response()->json($students);

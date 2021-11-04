@@ -16,7 +16,7 @@
             <input type="text" id="surname" class="card-text form-control mb-3" v-model="teacher.surname">
 
             <label for="lesson_title" class="card-title form-label">Предмет</label>
-            <input type="text" id="lesson_title" class="card-text form-control mb-3" v-model="teacher.lesson_title">
+            <input type="text" id="lesson_title" class="card-text form-control" v-model="teacher.lesson_title">
 
             <button class="btn btn-primary mt-3" type="submit">Сохранить</button>
             <router-link class="btn btn-secondary mt-3" :to="{name: 'teacherList'}">Вернуться</router-link>

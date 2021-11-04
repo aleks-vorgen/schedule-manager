@@ -23,8 +23,8 @@
                         </span>
                         <div  class="card" v-if="show_student_card === student.id">
                             <div class="card-body">
-                                <h5 class="card-title">{{ student.name }} {{ student.surname }}</h5>
-                                <p class="card-text">Студент учится в группе<br>{{ student.group_title }}</p>
+                                <h5 class="card-title">{{ stud.name }} {{ stud.surname }}</h5>
+                                <p class="card-text">Студент учится в группе<br>{{ stud.group_title }}</p>
                                 <a href="#" class="btn btn-primary" @click="show_student_card = false">Закрыть</a>
                             </div>
                         </div>
@@ -57,19 +57,21 @@
         name: "studentList",
         data() {
             return {
-                student: {
+                stud: {
                     name: "",
                     surname: "",
                     group_title: "",
                 },
                 students: [],
-                group_id: this.$route.params.group_id,
+                group_id: "",
                 show_student_card: "",
             }
         },
         mounted() {
-            if(this.group_id)
+            if (this.$route.params.group_id) {
+                this.group_id = this.$route.params.group_id
                 this.getStudentsByGroup(this.group_id)
+            }
             else
                 this.getStudents()
         },
@@ -84,6 +86,7 @@
             getStudentsByGroup(id) {
                 this.axios.get(`/api/admin/student/?id=${id}`).then(response => {
                     this.students = response.data
+                    console.log(this.students)
                 }).catch(error => {
                     alert("Request failed")
                 })
@@ -100,12 +103,14 @@
             },
             showStudent(id) {
                 this.axios.get(`/api/admin/student/${id}`).then(response => {
-                    this.student = response.data
+                    this.stud = response.data
                     this.show_student_card = id
                 }).catch(error => {
                     console.log(error)
                     alert("Request failed")
                 })
+                // this.stud = this.students.find(val => val.id === id)
+                // this.show_student_card = id
             },
         },
     }

@@ -29,7 +29,8 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',], function() {
             ->except('create');
 
     Route::resource('schedule', 'ScheduleController')
-            ->names('admin.schedules');
+            ->names('admin.schedules')
+            ->except('create', 'show');
 
     Route::resource('group', 'GroupController')
             ->names('admin.groups')
@@ -38,17 +39,17 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin',], function() {
 //<
 
 //> CustomerPanel
-Route::group(['namespace' => 'Customer'], function() {
-    Route::resource('student', 'StudentController')
-            ->names('customer.students');
-
-    Route::resource('teacher', 'TeacherController')
-            ->names('customer.teachers');
-
-    Route::resource('schedule', 'ScheduleController')
-            ->names('customer.schedules');
-
-    Route::resource('group', 'GroupController')
-            ->names('customer.groups');
-});
+//Route::group(['namespace' => 'Customer'], function() {
+//    Route::resource('student', 'StudentController')
+//            ->names('customer.students');
+//
+//    Route::resource('teacher', 'TeacherController')
+//            ->names('customer.teachers');
+//
+//    Route::resource('schedule', 'ScheduleController')
+//            ->names('customer.schedules');
+//
+//    Route::resource('group', 'GroupController')
+//            ->names('customer.groups');
+//});
 //<

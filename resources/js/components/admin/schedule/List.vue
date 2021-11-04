@@ -12,28 +12,20 @@
                 </tr>
                 </thead>
                 <tbody v-if="schedules.length >= 0">
-                <tr v-for="time in uniqueSchedules()">
-
+                <tr v-for="time in times">
                     <td>
                         {{ time.time_begin }}<br>{{ time.time_end }}
                     </td>
-
                     <td v-for="weekday in weekdays_en">
-
                         <span  v-for="schedule in schedules" v-if="schedule.day === weekday && schedule.time_begin === time.time_begin">
-                            {{ schedule.date }}<br>
-                            <strong>
-                                {{ schedule.group_title }}<br>
-                                {{ schedule.lesson_title }}<br>
-                            </strong>
-                            {{ schedule.teacher_name }}<br>
-                            {{ schedule.teacher_surname }}
-
+                            <router-link :to='{name:"scheduleEdit", params:{id:schedule.id}}' class="link-secondary">
+                                {{ schedule.date }}<br>
+                                <strong>{{ schedule.group_title }}<br>{{ schedule.lesson_title }}<br></strong>
+                                {{ schedule.teacher_name }}
+                            </router-link>
                         </span>
                         <span v-else></span>
-
                     </td>
-
                 </tr>
                 </tbody>
                 <tbody v-else>
@@ -73,15 +65,8 @@
         mounted() {
             this.getSchedules()
         },
-        methods: {
-            getSchedules() {
-                this.axios.get('/api/admin/schedule').then(response => {
-                    this.schedules = response.data
-                }).catch(error => {
-                    alert("Request failed")
-                })
-            },
-            uniqueSchedules() {
+        computed: {
+            times() {
                 let times = []
                 this.schedules.forEach(value => {
                     times.push({'time_begin': value.time_begin, 'time_end': value.time_end})
@@ -94,6 +79,15 @@
                 times.sort((cur, next) => cur.time_begin > next.time_begin ? 1 : -1)
 
                 return times
+            }
+        },
+        methods: {
+            getSchedules() {
+                this.axios.get('/api/admin/schedule').then(response => {
+                    this.schedules = response.data
+                }).catch(error => {
+                    alert("Request failed")
+                })
             },
             deleteSchedule(id) {
                 if (confirm("Вы уверены, что хотите удалить расписание?")) {

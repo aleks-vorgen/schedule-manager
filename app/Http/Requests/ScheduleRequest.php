@@ -14,7 +14,10 @@ class ScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'date' => 'required',
+            'time_begin' => 'required',
+            'group_id' => 'required',
+            'teacher_id' => 'required'
         ];
     }
 }
