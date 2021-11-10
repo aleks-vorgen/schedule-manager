@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\GroupRequest;
 use App\Models\Group;
+use Illuminate\Contracts\Foundation\Application;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\DB;
+use Illuminate\View\View;
 
 class GroupController extends Controller
 {
@@ -37,11 +40,11 @@ class GroupController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param int $id
-     * @return JsonResponse
+     * @return Application|Factory|View|JsonResponse
      */
     public function edit($id)
     {
-        $group = Group::find($id);
+        $group = Group::findOrFail($id);
         return response()->json($group);
     }
 

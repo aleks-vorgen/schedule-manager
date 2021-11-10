@@ -76,8 +76,13 @@
                     this.schedule.time_begin = time_begin
                     this.schedule.group_id = group_id
                     this.schedule.teacher_id = teacher_id
-                }).catch(error => {
-                    console.log(error)
+                }).catch(error=> {
+                    if (error.response.status === 404)
+                        alert("Schedule not found")
+                    else
+                        alert("Request failed")
+
+                    this.$router.push({name: "scheduleList"})
                 })
             },
             getGroups() {
@@ -117,7 +122,7 @@
             },
             create() {
                 this.schedule._method = 'post'
-                this.axios.post(`/api/admin/schedule/`, this.schedule).then(response => {
+                this.axios.post(`/api/admin/schedule`, this.schedule).then(response => {
                     this.$router.push({name: "scheduleList"})
                     alert("Расписание успешно добавлено")
                 }).catch(error => {

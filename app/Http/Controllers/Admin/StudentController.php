@@ -13,7 +13,6 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @param $id
      * @return JsonResponse
      */
     public function index()
@@ -83,7 +82,7 @@ class StudentController extends Controller
      */
     public function edit($id)
     {
-        $student = Student::find($id);
+        $student = Student::findOrFail($id);
         return response()->json($student);
     }
 

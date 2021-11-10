@@ -53,7 +53,7 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        $teacher = Teacher::find($id);
+        $teacher = Teacher::findOrFail($id);
         return response()->json($teacher);
     }
 

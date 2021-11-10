@@ -7,7 +7,6 @@ use App\Http\Requests\ScheduleRequest;
 use App\Models\Schedule;
 use Carbon\Carbon;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 
 class ScheduleController extends Controller
@@ -42,7 +41,7 @@ class ScheduleController extends Controller
      */
     public function store(ScheduleRequest $request)
     {
-        $schedule = new Schedule($request->validated());
+        $schedule = Schedule::create($request->validated());
         $date_time_end = Carbon::parse($request['time_begin'])->addHours(1)->addMinutes(20)->toTimeString();
         $date_time_end = Carbon::createFromFormat('H:i:s', $date_time_end)->toTimeString();
         $changes = [
@@ -62,7 +61,7 @@ class ScheduleController extends Controller
      */
     public function edit($id)
     {
-        $item = Schedule::find($id);
+        $item = Schedule::findOrFail($id);
 
         $time_begin = date('H:i', strtotime($item['date_time_begin']));
         $date = date('Y-m-d', strtotime($item['date_time_begin']));

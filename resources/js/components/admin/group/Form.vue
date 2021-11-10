@@ -37,13 +37,18 @@
                 this.axios.get(`/api/admin/group/${this.$route.params.id}/edit`).then(response=>{
                     this.group = response.data
                 }).catch(error=>{
-                    alert("Request failed")
+                    if (error.response.status === 404)
+                        alert("Group not found")
+                    else
+                        alert("Request failed")
+
+                    this.$router.push({name: "groupList"})
                 })
             },
             updateOrCreate() {
                 this.errors = []
                 if (!this.group.title || this.group.title.length < 5 || this.group.title.length > 20)
-                    this.errors.push('Название группы введено некорректно')
+                    this.errors.push('Название группы введено некорректно (5-20 символов')
                 if (!this.errors.length) {
                     if (!this.$route.params.id)
                         this.create()
@@ -62,7 +67,7 @@
             },
             create() {
                 this.group._method = "post"
-                this.axios.post('/api/admin/group/', this.group).then(response=>{
+                this.axios.post('/api/admin/group', this.group).then(response=>{
                     this.$router.push({name:"groupList"})
                     alert("Группа успешно добавлена")
                 }).catch(error=>{

@@ -54,8 +54,13 @@
             showStudent() {
                 this.axios.get(`/api/admin/student/${this.$route.params.id}/edit`).then(response=>{
                     this.student = response.data
-                }).catch(error=>{
-                    alert("Request failed")
+                }).catch(error=> {
+                    if (error.response.status === 404)
+                        alert("Student not found")
+                    else
+                        alert("Request failed")
+
+                    this.$router.push({name: "studentList"})
                 })
             },
             getGroups() {
@@ -68,9 +73,9 @@
             updateOrCreate() {
                 this.errors = []
                 if (!this.student.name || this.student.name.length < 3 || this.student.name.length > 20)
-                    this.errors.push('Имя студента введено некорректно (длинна 3-20 символов)')
+                    this.errors.push('Имя студента введено некорректно (3-20 символов)')
                 if (!this.student.surname || this.student.surname.length < 3 || this.student.surname.length > 20)
-                    this.errors.push('Фамилия студента введена некорректно (длинна 3-20 символов)')
+                    this.errors.push('Фамилия студента введена некорректно (3-20 символов)')
                 if (!this.student.group_id)
                     this.errors.push('Выберите группу студента')
 
@@ -92,7 +97,7 @@
             },
             create() {
                 this.student._method = "post"
-                this.axios.post('/api/admin/student/', this.student).then(response=>{
+                this.axios.post('/api/admin/student', this.student).then(response=>{
                     this.$router.push({name:"studentList"})
                     alert("Студент успешно добавлен")
                 }).catch(error=>{

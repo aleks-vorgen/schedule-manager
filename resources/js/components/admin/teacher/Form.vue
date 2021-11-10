@@ -46,18 +46,23 @@
             showTeacher() {
                 this.axios.get(`/api/admin/teacher/${this.$route.params.id}/edit`).then(response=>{
                     this.teacher = response.data
-                }).catch(error=>{
-                    alert("Request failed")
+                }).catch(error=> {
+                    if (error.response.status === 404)
+                        alert("Teacher not found")
+                    else
+                        alert("Request failed")
+
+                    this.$router.push({name: "teacherList"})
                 })
             },
             updateOrCreate() {
                 this.errors = []
                 if (!this.teacher.name || this.teacher.name.length < 3 || this.teacher.name.length > 20)
-                    this.errors.push('Имя студента введено некорректно (длинна 3-20 символов)')
+                    this.errors.push('Имя студента введено некорректно (3-20 символов)')
                 if (!this.teacher.surname || this.teacher.surname.length < 3 || this.teacher.surname.length > 20)
-                    this.errors.push('Фамилия студента введена некорректно (длинна 3-20 символов)')
+                    this.errors.push('Фамилия студента введена некорректно (3-20 символов)')
                 if (!this.teacher.lesson_title || this.teacher.lesson_title < 3 || this.teacher.lesson_title > 20)
-                    this.errors.push('Предмет введён некорректно (длинна 3-20 символов)')
+                    this.errors.push('Предмет введён некорректно (3-20 символов)')
 
                 if (!this.errors.length) {
                     if (!this.$route.params.id)
@@ -77,7 +82,7 @@
             },
             create() {
                 this.teacher._method = "post"
-                this.axios.post('/api/admin/teacher/', this.teacher).then(response=>{
+                this.axios.post('/api/admin/teacher', this.teacher).then(response=>{
                     this.$router.push({name:"teacherList"})
                     alert("Преподаватель успешно добавлен")
                 }).catch(error=>{

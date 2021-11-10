@@ -5,8 +5,8 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * @method static find(int $id)
  * @method static create($validated)
+ * @method static findOrFail(int $id)
  */
 class Student extends Model
 {
